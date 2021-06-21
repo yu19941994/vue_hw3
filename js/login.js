@@ -13,7 +13,7 @@ const app = Vue.createApp({
     login () {
       axios.post(`${this.url}/admin/signin`, this.userprofile)
         .then(res => {
-            if(res.data.success === true) {
+            if(res.data.success) {
             const { token, expired } = res.data
             document.cookie = `myToken = ${token}; expires = ${new Date(expired)}`
             this.init()

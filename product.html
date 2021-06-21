@@ -86,7 +86,7 @@
                       <label for="imageUrl">圖片網址</label>
                       <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
                     </div>
-                    <img class="img-fluid" :src="image">
+                    <img class="img-fluid" :src="tempProduct.imagesUrl[key]">
                   </div>
                   <div v-if="!tempProduct.imagesUrl.length || tempProduct.imagesUrl[tempProduct.imagesUrl.length-1]">
                     <button class="btn btn-outline-primary btn-sm d-block w-100" @click="tempProduct.imagesUrl.push('')">
@@ -176,7 +176,7 @@
           </div>
           <div class="modal-body">
             是否刪除
-            <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。
+            <strong class="text-danger">{{ tempProduct.title }}</strong> 商品(刪除後將無法恢復)。
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

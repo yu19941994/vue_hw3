@@ -10,7 +10,6 @@ const app = createApp({
       path: `uy_neish`,
       products: [],
       content: '',
-      image: '',
       tempProduct: {
         // imagesUrl: []
       },
@@ -37,7 +36,7 @@ const app = createApp({
       if(this.isNew){
         this.tempProduct = {imgUrl: []}
       }else{
-        this.tempProduct = {...item} 
+        this.tempProduct = JSON.parse(JSON.stringify(item))
       }
       productModal.show()
     },
@@ -51,8 +50,8 @@ const app = createApp({
         method = 'put'
         updateUrl = `${this.url}/api/${this.path}/admin/product/${this.tempProduct.id}`
       }
-      this.tempProduct.origin_price = parseInt(this.tempProduct.origin_price)
-      this.tempProduct.price = parseInt(this.tempProduct.price)
+      // this.tempProduct.origin_price = parseInt(this.tempProduct.origin_price)
+      // this.tempProduct.price = parseInt(this.tempProduct.price)
 
       axios[method](updateUrl,{ data: this.tempProduct })
         .then(res => {
@@ -60,6 +59,24 @@ const app = createApp({
           if(res.data.success) {
             this.getProduct()
             productModal.hide()
+          }else{
+            let alertStr = ``
+            if(res.data.message.includes(' title 欄位為必填')){
+              alertStr += `標題欄位為必填,`
+            }
+            if(res.data.message.includes(' category 欄位為必填')){
+              alertStr += `分類欄位為必填,`
+            }
+            if(res.data.message.includes(' unit 欄位為必填')){
+              alertStr += `單位欄位為必填,`
+            }
+            if(res.data.message.includes('origin_price 型別錯誤')){
+              alertStr += `原價欄位型別錯誤,`
+            }
+            if(res.data.message.includes('price 型別錯誤')){
+              alertStr += `售價欄位型別錯誤,`
+            }
+            alert(alertStr)
           }
         })
         .catch(err => console.log(err))
