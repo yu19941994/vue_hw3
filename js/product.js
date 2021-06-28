@@ -76,6 +76,12 @@ const app = createApp({
             if(res.data.message.includes('price 型別錯誤')){
               alertStr += `售價欄位型別錯誤,`
             }
+            if(res.data.message.includes(' origin_price 欄位為必填')){
+              alertStr += `原價欄位為必填,`
+            }
+            if(res.data.message.includes(' price 欄位為必填')){
+              alertStr += `售價欄位為必填,`
+            }
             alert(alertStr)
           }
         })
